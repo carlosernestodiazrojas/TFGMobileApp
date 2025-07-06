@@ -1,0 +1,84 @@
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+
+import AnnouncementDetailScreen from '../screens/announcements/AnnouncementDetailScreen';
+import AnnouncementsScreen from '../screens/announcements/AnnouncementsScreen';
+import LoginScreen from '../screens/user/LoginScreen';
+
+import { Platform } from 'react-native';
+import { useAuth } from '../context/AuthContext';
+import { RootStackParamList, TabParamList } from '../types';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<TabParamList>();
+
+function MainTabs() {
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName: keyof typeof Ionicons.glyphMap;
+
+                    if (route.name === 'Announcements') {
+                        iconName = focused ? 'megaphone' : 'megaphone-outline';
+                    } else if (route.name === 'CommonZones') {
+                        iconName = focused ? 'cube' : 'cube-outline';
+                    } else {
+                        iconName = focused ? 'person' : 'person-outline';
+                    }
+
+                    return <Ionicons name={iconName} size={size} color={color} />;
+                },
+                tabBarActiveTintColor: '#667eea',
+                tabBarInactiveTintColor: 'gray',
+                tabBarStyle: {
+                    backgroundColor: 'white',
+                    borderTopWidth: 1,
+                    borderTopColor: '#e0e0e0',
+                    paddingBottom: Platform.OS === 'ios' ? 20 : 8,
+                    paddingTop: 8,
+                    height: Platform.OS === 'ios' ? 85 : 100,
+                    marginBottom: Platform.OS === 'android' ? 0 : 0,
+                    position: 'absolute',
+                    bottom: Platform.OS === 'android' ? 0 : 0,
+                    left: 0,
+                    right: 0,
+                },
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                    fontWeight: '600',
+                },
+            })}
+        >
+            <Tab.Screen
+                name="Announcements"
+                component={AnnouncementsScreen}
+                options={{ tabBarLabel: 'Noticias' }}
+            />
+        </Tab.Navigator>
+    );
+}
+
+export default function AppNavigator() {
+    const { isAuthenticated, loading } = useAuth();
+
+    if (loading) {
+        return null;
+    }
+
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {isAuthenticated ? (
+                <>
+                    <Stack.Screen name="MainTabs" component={MainTabs} />
+                    <Stack.Screen name="AnnouncementDetail" component={AnnouncementDetailScreen} />
+                </>
+            ) : (
+                <Stack.Screen name="Login" component={LoginScreen} />
+            )}
+        </Stack.Navigator>
+    );
+}
