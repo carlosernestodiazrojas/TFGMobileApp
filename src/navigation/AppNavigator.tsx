@@ -11,6 +11,7 @@ import CreateIncidenceScreen from '@/screens/incidences/CreateIncidenceScreen';
 import IncidenceDetailScreen from '@/screens/incidences/IncidenceDetailScreen';
 import IncidencesScreen from '@/screens/incidences/IncidencesScreen';
 import ProfileScreen from '@/screens/user-profile/ProfileScreen';
+import ChangePasswordScreen from '@/screens/user/ChangePasswordScreen';
 import { Platform } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { RootStackParamList, TabParamList } from '../types';
@@ -97,6 +98,7 @@ export default function AppNavigator() {
                     <Stack.Screen name="AnnouncementDetail" component={AnnouncementDetailScreen} />
                     <Stack.Screen name="IncidenceDetail" component={IncidenceDetailScreen} />
                     <Stack.Screen name="CreateIncidence" component={CreateIncidenceScreen} />
+                    <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
                 </>
             ) : (
                 <Stack.Screen name="Login" component={LoginScreen} />
