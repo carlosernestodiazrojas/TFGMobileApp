@@ -14,6 +14,7 @@ import ProfileScreen from '@/screens/user-profile/ProfileScreen';
 import { Platform } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { RootStackParamList, TabParamList } from '../types';
+import MyHoaMainTabsScreen from './MyHoaMainTabScreenNavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -66,6 +67,11 @@ function MainTabs() {
                 name="Incidences"
                 component={IncidencesScreen}
                 options={{ tabBarLabel: 'Incidencias' }}
+            />
+            <Tab.Screen
+                name="HoaInfo"
+                component={MyHoaMainTabsScreen}
+                options={{ tabBarLabel: 'Comunidad' }}
             />
             <Tab.Screen
                 name="UserProfile"
