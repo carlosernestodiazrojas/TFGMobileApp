@@ -1,3 +1,4 @@
+import ProfilesTabScreen from '@/screens/user-profile/ProfilesTabScreen';
 import React, { useState } from 'react';
 import {
     Text,
@@ -20,6 +21,7 @@ interface Tab {
 const tabs: Tab[] = [
     { id: 'assessments', title: 'Derramas', component: SpecialAssessmentsTabScreen },
     { id: 'commonZones', title: 'Zonas Comunes', component: CommonZonesTabScreen },
+    { id: 'profiles', title: 'Autoridad', component: ProfilesTabScreen },
 ];
 
 export default function MyHoaMainTabsScreen() {
