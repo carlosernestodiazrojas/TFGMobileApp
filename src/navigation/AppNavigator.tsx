@@ -7,6 +7,7 @@ import AnnouncementDetailScreen from '../screens/announcements/AnnouncementDetai
 import AnnouncementsScreen from '../screens/announcements/AnnouncementsScreen';
 import LoginScreen from '../screens/user/LoginScreen';
 
+import ProfileScreen from '@/screens/user-profile/ProfileScreen';
 import { Platform } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { RootStackParamList, TabParamList } from '../types';
@@ -57,6 +58,11 @@ function MainTabs() {
                 name="Announcements"
                 component={AnnouncementsScreen}
                 options={{ tabBarLabel: 'Noticias' }}
+            />
+            <Tab.Screen
+                name="UserProfile"
+                component={ProfileScreen}
+                options={{ tabBarLabel: 'Mi perfil' }}
             />
         </Tab.Navigator>
     );
