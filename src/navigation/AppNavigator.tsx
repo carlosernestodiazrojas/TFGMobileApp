@@ -7,6 +7,9 @@ import AnnouncementDetailScreen from '../screens/announcements/AnnouncementDetai
 import AnnouncementsScreen from '../screens/announcements/AnnouncementsScreen';
 import LoginScreen from '../screens/user/LoginScreen';
 
+import CreateIncidenceScreen from '@/screens/incidences/CreateIncidenceScreen';
+import IncidenceDetailScreen from '@/screens/incidences/IncidenceDetailScreen';
+import IncidencesScreen from '@/screens/incidences/IncidencesScreen';
 import ProfileScreen from '@/screens/user-profile/ProfileScreen';
 import { Platform } from 'react-native';
 import { useAuth } from '../context/AuthContext';
@@ -60,6 +63,11 @@ function MainTabs() {
                 options={{ tabBarLabel: 'Noticias' }}
             />
             <Tab.Screen
+                name="Incidences"
+                component={IncidencesScreen}
+                options={{ tabBarLabel: 'Incidencias' }}
+            />
+            <Tab.Screen
                 name="UserProfile"
                 component={ProfileScreen}
                 options={{ tabBarLabel: 'Mi perfil' }}
@@ -81,6 +89,8 @@ export default function AppNavigator() {
                 <>
                     <Stack.Screen name="MainTabs" component={MainTabs} />
                     <Stack.Screen name="AnnouncementDetail" component={AnnouncementDetailScreen} />
+                    <Stack.Screen name="IncidenceDetail" component={IncidenceDetailScreen} />
+                    <Stack.Screen name="CreateIncidence" component={CreateIncidenceScreen} />
                 </>
             ) : (
                 <Stack.Screen name="Login" component={LoginScreen} />
