@@ -11,15 +11,13 @@ const API_BASE_URL =
             process.env.EXPO_PUBLIC_API_URL_IOS :
             process.env.EXPO_PUBLIC_API_URL_ANDROID;
 
-console.log('API_BASE_URL:', Platform.OS, API_BASE_URL, Platform.Version);
-
 const holaVecinoApi = axios.create({
     baseURL: API_BASE_URL,
 })
 
 holaVecinoApi.interceptors.request.use(
     async (config) => {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('userToken');
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
