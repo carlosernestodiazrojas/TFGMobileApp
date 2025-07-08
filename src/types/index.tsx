@@ -48,7 +48,7 @@ export type RootStackParamList = {
     Profile: undefined;
     ChangePassword: undefined;
 
-    SpecialAssessmentDetail: { derrama: SpecialAssessment };
+    SpecialAssessmentDetail: { specialAssessment: SpecialAssessment };
 
     CommonZoneDetail: { zona: CommonZone };
 };

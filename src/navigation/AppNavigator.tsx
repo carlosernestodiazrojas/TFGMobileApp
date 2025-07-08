@@ -14,6 +14,7 @@ import LoginScreen from '../screens/user/LoginScreen';
 import MyHoaMainTabsScreen from '@/navigation/MyHoaMainTabScreenNavigator';
 
 import CreateIncidenceScreen from '@/screens/incidences/CreateIncidenceScreen';
+import SpecialAssessmentDetailScreen from '@/screens/special-assessments/SpecialAssessmentDetailScreen';
 import { Platform } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { RootStackParamList, TabParamList } from '../types';
@@ -100,6 +101,7 @@ export default function AppNavigator() {
                     <Stack.Screen name="IncidenceDetail" component={IncidenceDetailScreen} />
                     <Stack.Screen name="CreateIncidence" component={CreateIncidenceScreen} />
                     <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
+                    <Stack.Screen name="SpecialAssessmentDetail" component={SpecialAssessmentDetailScreen} />
                 </>
             ) : (
                 <Stack.Screen name="Login" component={LoginScreen} />
