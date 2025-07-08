@@ -1,4 +1,3 @@
-import ProfilesTabScreen from '@/screens/user-profile/ProfilesTabScreen';
 import React, { useState } from 'react';
 import {
     Text,
@@ -8,6 +7,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CommonZonesTabScreen from '../screens/common-zones/CommonZonesTabScreen';
 import SpecialAssessmentsTabScreen from '../screens/special-assessments/SpecialAssessmentsTabScreen';
+import ProfilesTabScreen from '../screens/user-profile/ProfilesTabScreen';
 import { colors, globalStyles, tabStyles } from '../styles';
 
 type TabType = 'assessments' | 'commonZones' | 'profiles';

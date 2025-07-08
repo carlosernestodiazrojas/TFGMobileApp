@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { User } from '../types';
 
+import { authLogin } from '@/actions/authActions';
+
 interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
@@ -52,23 +54,38 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const login = async (email: string, password: string) => {
+
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
 
-            if (email === 'admin@example.com' && password === 'password') {
-                const userData: User = {
-                    id: '1',
-                    email,
-                    name: 'Administrador',
-                    token: 'fake-token-123',
-                };
+            const response = await authLogin(email, password);
 
-                await AsyncStorage.setItem('userToken', userData.token);
-                await AsyncStorage.setItem('userData', JSON.stringify(userData));
-                setUser(userData);
-                setIsAuthenticated(true);
-                return { success: true };
-            } else {
+            if (response) {
+                const { token, user } = response
+
+                if (token && user) {
+                    await AsyncStorage.setItem('userToken', token);
+                    await AsyncStorage.setItem('userData', JSON.stringify(user));
+                    setUser(user);
+                    setIsAuthenticated(true);
+                    return { success: true };
+                }
+                else {
+                    await AsyncStorage.removeItem('userToken');
+                    await AsyncStorage.removeItem('userData');
+                    setUser(null);
+                    setIsAuthenticated(false);
+                    return { success: false, error: 'Credenciales inválidas' };
+                }
+
+            }
+            else {
+
+
+
+                await AsyncStorage.removeItem('userToken');
+                await AsyncStorage.removeItem('userData');
+                setUser(null);
+                setIsAuthenticated(false);
                 return { success: false, error: 'Credenciales inválidas' };
             }
         } catch (error) {
