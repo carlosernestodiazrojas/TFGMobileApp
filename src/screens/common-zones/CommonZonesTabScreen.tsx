@@ -16,10 +16,11 @@ import { EmptyStateComponent } from '../../components/loading/LoadingComponent';
 import { colors, filterStyles, globalStyles, spacing } from '../../styles';
 import { CommonZone, RootStackParamList } from '../../types';
 
+import { getCommonZones } from '@/actions/commonZoneActions';
 import RenderCommonZoneItem from '@/components/common-zones/RenderCommonZone';
 import CommonZoneSkeleton from '@/components/skeletons/CommonZoneSkeleton';
 
-type CommonZonesNavigationProp = NativeStackNavigationProp<RootStackParamList>;
+export type CommonZonesNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function CommonZonesTabScreen() {
     const navigation = useNavigation<CommonZonesNavigationProp>();
@@ -39,71 +40,20 @@ export default function CommonZonesTabScreen() {
     }, [searchQuery, showBookableOnly, commonZones]);
 
     const fetchCommonZones = async () => {
-        try {
-            const exampleCommonZones: CommonZone[] = [
-                {
-                    "id": "adcbee2c-59db-487b-9e4e-e356dea33d82",
-                    "name": "Test delete",
-                    "description": "Cancha de padel pequeña",
-                    "is_bookable": true,
-                    "daily_capacity": 7,
-                    "is_deleted": false,
-                    "created": "2025-07-01T20:31:52.016Z",
-                    "updated": "2025-07-01T20:31:52.016Z",
-                    "images": [],
-                    "imagesUrls": []
-                },
-                {
-                    "id": "c235686b-a376-49db-9f2b-ad2fd1456cd3",
-                    "name": "Cancha de padel 2",
-                    "description": "Cancha de padel mas grande",
-                    "is_bookable": false,
-                    "daily_capacity": 0,
-                    "is_deleted": false,
-                    "created": "2025-06-08T13:32:11.307Z",
-                    "updated": "2025-06-08T13:32:11.307Z",
-                    "images": [],
-                    "imagesUrls": []
-                },
-                {
-                    "id": "a33689a4-2901-48dd-b72a-9b21be0f7c2a",
-                    "name": "Piscina",
-                    "description": "Esta es la piscina",
-                    "is_bookable": true,
-                    "daily_capacity": 17,
-                    "is_deleted": false,
-                    "created": "2025-06-08T12:09:43.506Z",
-                    "updated": "2025-06-08T13:20:04.357Z",
-                    "images": [
-                        "d8566a95-4813-4b2f-bd55-d0c7de330d1e"
-                    ],
-                    "imagesUrls": [
-                        "http://87.106.118.122:9000/myfincapp-bucket/bc56b431739bdfbd93b6eb5c23e3662465b5acfdab91d09880e021ab2f024ffa.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=minioadmin%2F20250706%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250706T180916Z&X-Amz-Expires=600&X-Amz-Signature=60e6d5fad5496edb555136415ca0f37a67d6c4da1ab528a99f423e6eec6abdd1&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject"
-                    ]
-                },
-                {
-                    "id": "7c645bab-4252-4ea3-9a16-0b9525887a2a",
-                    "name": "Cancha de padel 1",
-                    "description": "Cancha de padel pequeña 1",
-                    "is_bookable": true,
-                    "daily_capacity": 8,
-                    "is_deleted": false,
-                    "created": "2025-06-08T11:12:29.039Z",
-                    "updated": "2025-06-08T13:31:50.519Z",
-                    "images": [],
-                    "imagesUrls": []
-                }
-            ]
 
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            setCommonZones(exampleCommonZones);
+        try {
+
+            const commonZones = await getCommonZones()
+            setCommonZones(commonZones as CommonZone[])
+
         } catch (error) {
             Alert.alert('Error', 'Error de conexión');
         } finally {
             setLoading(false);
             setRefreshing(false);
         }
-    };
+
+    }
 
     const filterCommonZones = () => {
         let filtered = commonZones;
