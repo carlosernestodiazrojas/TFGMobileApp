@@ -16,6 +16,7 @@ import { RootStackParamList } from '../../types';
 import { RenderUserCard } from '@/components/profiles/RenderUserProfile';
 import { UserSkeleton } from '@/components/skeletons/UserSkeleton';
 
+import { getAuthorityProfiles } from '@/actions/userAuthorityProfilesActions';
 import { UserProfile } from '../../types';
 
 type PerfilesNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -34,74 +35,15 @@ export default function ProfilesTabScreen() {
 
     const fetchUsers = async () => {
         try {
-            const exampleUsers: UserProfile[] = [
-                {
-                    "id": "f1be09f7-a307-4bb7-8dd4-571fc172b8f6",
-                    "email": "pedropi@holavecino.es",
-                    "name": "Pedro ",
-                    "last_name": "Pi",
-                    "role": {
-                        "id": "199949c7-0c29-4204-bac8-d13aae8771db",
-                        "code": 2,
-                        "name": "administrador"
-                    },
-                    "hoa": {
-                        "id": "89caee06-0ab1-4a4c-afe9-9b7801d95c6d",
-                        "name": "Mar azul",
-                        "address": "Avenida acoran # 25",
-                        "images": [],
-                        "imagesUrls": [],
-                        "president_id": null,
-                        "admin_id": null
-                    },
-                    "property": {
-                        "id": "e9ccd83f-4387-4f53-9063-5b1df88b7d48",
-                        "property_identifier": "Apto 2do A",
-                        "is_deleted": false,
-                        "property_type": "interior",
-                        "has_storage_room": true,
-                        "has_parking_space": false,
-                        "current_on_payments": false,
-                        "created": "2025-06-07T21:04:37.420Z",
-                        "updated": "2025-06-07T21:04:37.420Z"
-                    },
-                    "images": [],
-                    "imagesUrls": []
-                },
-                {
-                    "id": "6beb0323-e781-43cb-ae29-c2038fe5da0b",
-                    "email": "superadmin@holavecino.es",
-                    "name": "Super",
-                    "last_name": "Admin",
-                    "role": {
-                        "id": "a9ec66d1-f2c6-4dcf-85f2-e263a8d3b198",
-                        "code": 1,
-                        "name": "global_admin"
-                    },
-                    "hoa": {
-                        "id": "89caee06-0ab1-4a4c-afe9-9b7801d95c6d",
-                        "name": "Mar azul",
-                        "address": "Avenida acoran # 25",
-                        "images": [],
-                        "imagesUrls": [],
-                        "president_id": null,
-                        "admin_id": null
-                    },
-                    "property": null,
-                    "images": [],
-                    "imagesUrls": ["http://87.106.118.122:9000/myfincapp-bucket/562ea9c1469e691053d204171b597395616947874653befd9cd1086536e0036c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=minioadmin%2F20250706%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250706T184658Z&X-Amz-Expires=600&X-Amz-Signature=dc201986869ab6cfed0ba56b0b450ebf93ab35283dcb9b5c783e50da30497378&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject"]
-                },
-            ]
-
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            setUsers(exampleUsers);
+            const users = await getAuthorityProfiles()
+            setUsers(users as unknown as UserProfile[]);
         } catch (error) {
             Alert.alert('Error', 'Error de conexión');
         } finally {
             setLoading(false);
             setRefreshing(false);
         }
-    };
+    }
 
     const onRefresh = () => {
         setRefreshing(true);

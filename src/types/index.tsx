@@ -100,7 +100,7 @@ interface Role {
     name: string;
 }
 
-interface HOA {
+export interface Hoa {
     id: string;
     name: string;
     address: string;
@@ -128,7 +128,7 @@ export interface UserProfile {
     name: string;
     last_name: string;
     role: Role;
-    hoa: HOA;
+    hoa: Hoa;
     property: Property | null;
     images: string[];
     imagesUrls: string[];
