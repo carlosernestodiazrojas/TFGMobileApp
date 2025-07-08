@@ -32,7 +32,10 @@ export interface User {
     id: string;
     email: string;
     name: string;
+    lastName: string;
+    hoaId: string;
     token: string;
+    role: string;
 }
 
 export type RootStackParamList = {
@@ -88,6 +91,8 @@ export interface CommonZone {
     created: string;
     updated: string;
 }
+
+
 
 interface Role {
     id: string;

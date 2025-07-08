@@ -5,17 +5,18 @@ import React from 'react';
 
 import AnnouncementDetailScreen from '../screens/announcements/AnnouncementDetailScreen';
 import AnnouncementsScreen from '../screens/announcements/AnnouncementsScreen';
+import IncidenceDetailScreen from '../screens/incidences/IncidenceDetailScreen';
+import IncidencesScreen from '../screens/incidences/IncidencesScreen';
+import ProfileScreen from '../screens/user-profile/ProfileScreen';
+import ChangePasswordScreen from '../screens/user/ChangePasswordScreen';
 import LoginScreen from '../screens/user/LoginScreen';
 
+import MyHoaMainTabsScreen from '@/navigation/MyHoaMainTabScreenNavigator';
+
 import CreateIncidenceScreen from '@/screens/incidences/CreateIncidenceScreen';
-import IncidenceDetailScreen from '@/screens/incidences/IncidenceDetailScreen';
-import IncidencesScreen from '@/screens/incidences/IncidencesScreen';
-import ProfileScreen from '@/screens/user-profile/ProfileScreen';
-import ChangePasswordScreen from '@/screens/user/ChangePasswordScreen';
 import { Platform } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { RootStackParamList, TabParamList } from '../types';
-import MyHoaMainTabsScreen from './MyHoaMainTabScreenNavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();

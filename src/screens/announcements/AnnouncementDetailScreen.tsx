@@ -15,7 +15,6 @@ import { RootStackParamList } from '../../types';
 
 import { formatDate, formatDateShort } from '@/utils/formatDatesUtil';
 
-
 type AnnouncementDetailScreenRouteProp = RouteProp<RootStackParamList, 'AnnouncementDetail'>;
 
 export default function AnnouncementDetailScreen() {
