@@ -87,7 +87,7 @@ export default function ProfileScreen() {
             <View style={[globalStyles.flex1, globalStyles.screenPadding]}>
                 <View style={profileStyles.profileHeader}>
                     <View style={profileCardStyles.avatarContainer}>
-                        {/* Imagen con manejo de errores mejorado */}
+
                         <Image
                             source={getImageSource()}
                             style={[profileCardStyles.avatar, imageStyles.avatar]}
@@ -98,7 +98,6 @@ export default function ProfileScreen() {
                             defaultSource={{ uri: profileUser.imagesUrls[0] }}
                         />
 
-                        {/* Fallback con icono si falla la imagen */}
                         {imageError && (
                             <View style={imageStyles.fallbackContainer}>
                                 <Ionicons name="person" size={48} color={colors.primary} />
@@ -143,7 +142,6 @@ export default function ProfileScreen() {
     );
 }
 
-// Estilos adicionales para la imagen
 const imageStyles = {
     avatar: {
         backgroundColor: colors.gray200,

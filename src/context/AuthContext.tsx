@@ -79,9 +79,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
             }
             else {
-
-
-
                 await AsyncStorage.removeItem('userToken');
                 await AsyncStorage.removeItem('userData');
                 setUser(null);
