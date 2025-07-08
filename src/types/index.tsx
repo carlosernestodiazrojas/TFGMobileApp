@@ -50,7 +50,7 @@ export type RootStackParamList = {
 
     SpecialAssessmentDetail: { specialAssessment: SpecialAssessment };
 
-    CommonZoneDetail: { zona: CommonZone };
+    CommonZoneDetail: { commonZone: CommonZone };
 };
 
 export type TabParamList = {
