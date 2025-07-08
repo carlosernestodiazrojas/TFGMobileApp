@@ -136,7 +136,7 @@ export default function AnnouncementsScreen() {
                             placeholderTextColor={colors.gray400}
                             value={searchQuery}
                             onChangeText={setSearchQuery}
-                            editable={false}
+                            editable={!showSkeleton}
                         />
                     </View>
                     <TouchableOpacity
