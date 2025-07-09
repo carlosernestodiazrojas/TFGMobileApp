@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { User } from '../types';
 
-import { authLogin } from '@/actions/authActions';
+import { authLogin, changePasswordAction } from '@/actions/authActions';
 
 interface AuthContextType {
     user: User | null;
@@ -103,8 +103,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const changePassword = async (currentPassword: string, newPassword: string) => {
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            return { success: true };
+
+            const user = JSON.parse(await AsyncStorage.getItem("userData") as string) as User;
+
+            const response = await changePasswordAction(user.id, currentPassword, newPassword)
+
+            if (response && response === true)
+                return { success: true };
+            else
+                return { success: false, error: 'Contraseña anterior incorrecta' };
         } catch (error) {
             return { success: false, error: 'Error de conexión' };
         }

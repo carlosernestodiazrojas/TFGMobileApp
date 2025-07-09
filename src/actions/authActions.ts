@@ -3,8 +3,6 @@ import type { ApiResponse } from "@/types/apiResponse";
 import { AuthResponse } from "@/types/authResponse";
 import { holaVecinoApi } from "../api/holaVecinoApi";
 
-
-
 const returnUserToken = (data: AuthResponse): {
     token: string;
     user: User;
@@ -39,6 +37,23 @@ export const authLogin = async (email: string, password: string) => {
 
     } catch (error) {
 
+        return null
+    }
+
+}
+
+
+export const changePasswordAction = async (userId: string, oldPass: string, newPass: string) => {
+
+    try {
+        const response = await holaVecinoApi.patch<ApiResponse<string>>(`/users/${userId}/password`, {
+            oldPass, newPass
+        })
+        const { success } = response.data;
+
+        return success
+
+    } catch (error) {
         return null
     }
 
