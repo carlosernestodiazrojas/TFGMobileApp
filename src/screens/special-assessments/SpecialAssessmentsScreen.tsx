@@ -2,13 +2,14 @@ import { getSpecialAssessments } from '@/actions/specialAssessmentActions';
 import SpecialAssessmentSkeleton from '@/components/skeletons/SpecialAssessmentSkeleton';
 import RenderSpecialAssessment from '@/components/special-assessments/RenderSpecialAssessment';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     Alert,
     FlatList,
     RefreshControl,
+    SafeAreaView,
     Text,
     TextInput,
     TouchableOpacity,
@@ -29,9 +30,11 @@ export default function SpecialAssessmentsTabScreen() {
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchSpecialAssessments();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            fetchSpecialAssessments();
+        }, [])
+    );
 
     useEffect(() => {
         filterSpecialAssessments();
@@ -126,6 +129,11 @@ export default function SpecialAssessmentsTabScreen() {
     const renderFilters = ({ showSkeleton }: { showSkeleton: boolean }) => {
         return (
             <>
+
+                <View style={[globalStyles.flexRowBetween, globalStyles.header]}>
+                    <Text style={globalStyles.headerTitle}>Derramas</Text>
+                </View>
+
                 <View style={[
                     globalStyles.paddingHorizontal,
                     globalStyles.paddingVertical,
@@ -180,11 +188,11 @@ export default function SpecialAssessmentsTabScreen() {
     }
 
     if (loading) {
-        return <View style={globalStyles.flex1}>{renderFilters({ showSkeleton: true })}</View>
+        return <SafeAreaView style={globalStyles.container}>{renderFilters({ showSkeleton: true })}</SafeAreaView>
     }
 
     return (
-        <View style={globalStyles.flex1}>
+        <SafeAreaView style={globalStyles.container}>
 
             {renderFilters({ showSkeleton: false })}
 
@@ -203,7 +211,7 @@ export default function SpecialAssessmentsTabScreen() {
                 showsVerticalScrollIndicator={false}
                 ListEmptyComponent={renderEmptyState}
             />
-        </View>
+        </SafeAreaView>
     );
 }
 

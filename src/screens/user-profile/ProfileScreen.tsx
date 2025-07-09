@@ -1,7 +1,8 @@
+import { getUserById } from '@/actions/userAuthorityProfilesActions';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     Alert,
     Image,
@@ -20,30 +21,21 @@ export default function ProfileScreen() {
     const navigation = useNavigation<ProfileScreenNavigationProp>();
     const { user, logout } = useAuth();
     const [imageError, setImageError] = useState(false);
+    const [profileUserImage, setProfileUserImage] = useState<string>('')
 
-    const profileUser = {
-        "id": "a",
-        "email": "Test@holavecino.es",
-        "name": "Test",
-        "last_name": "Admin",
-        "role": {
-            "id": "b",
-            "code": 1,
-            "name": "global_admin"
-        },
-        "hoa": {
-            "id": "a",
-            "name": "test",
-            "address": "Test",
-            "images": [],
-            "imagesUrls": [],
-            "president_id": null,
-            "admin_id": null
-        },
-        "property": null,
-        "images": [],
-        "imagesUrls": ["http://87.106.118.122:9000/myfincapp-bucket/562ea9c1469e691053d204171b597395616947874653befd9cd1086536e0036c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=minioadmin%2F20250706%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250706T190504Z&X-Amz-Expires=600&X-Amz-Signature=e0aafabe4404622a50d36f31619445a9c2c5b2f5ee39d1847240aa3574f0b322&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject"]
-    };
+    useFocusEffect(
+        useCallback(() => {
+            fetchUserImage()
+        }, [])
+    );
+
+    const fetchUserImage = async () => {
+        const response = await getUserById(user?.id as string)
+        if (response && response.imagesUrls.length > 0) {
+            setProfileUserImage(response.imagesUrls[0])
+        } else
+            setProfileUserImage('')
+    }
 
     const handleLogout = () => {
         Alert.alert(
@@ -56,23 +48,11 @@ export default function ProfileScreen() {
         );
     };
 
-    const handleImageError = (error: Object) => {
-        console.log('Error al cargar la imagen -- ', error);
-        setImageError(true);
-    };
-
-    const handleImageLoad = () => {
-        console.log('Imagen cargada exitosamente');
-        setImageError(false);
-    };
-
-    // Obtener la URL de la imagen o usar fallback
     const getImageSource = () => {
-        const imageUrl = profileUser?.imagesUrls?.[0];
+        const imageUrl = profileUserImage
 
-        // Si hay error o no hay URL, usar placeholder
         if (imageError || !imageUrl) {
-            return { uri: 'http://87.106.118.122:9000/myfincapp-bucket/562ea9c1469e691053d204171b597395616947874653befd9cd1086536e0036c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=minioadmin%2F20250706%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250706T190504Z&X-Amz-Expires=600&X-Amz-Signature=e0aafabe4404622a50d36f31619445a9c2c5b2f5ee39d1847240aa3574f0b322&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject' };
+            return { uri: '' }
         }
 
         return { uri: imageUrl };
@@ -91,11 +71,8 @@ export default function ProfileScreen() {
                         <Image
                             source={getImageSource()}
                             style={[profileCardStyles.avatar, imageStyles.avatar]}
-                            onError={handleImageError}
-                            onLoad={handleImageLoad}
-                            onLoadStart={() => console.log('Iniciando carga de imagen')}
                             resizeMode="cover"
-                            defaultSource={{ uri: profileUser.imagesUrls[0] }}
+                            defaultSource={{ uri: profileUserImage }}
                         />
 
                         {imageError && (
@@ -111,10 +88,10 @@ export default function ProfileScreen() {
                     </View>
 
                     <Text style={profileStyles.userName}>
-                        {profileUser?.name || 'Usuario'} {profileUser?.last_name || ''}
+                        {user?.name} {user?.lastName}
                     </Text>
                     <Text style={profileStyles.userEmail}>
-                        {profileUser?.email || 'user@example.com'}
+                        {user?.email}
                     </Text>
 
                 </View>

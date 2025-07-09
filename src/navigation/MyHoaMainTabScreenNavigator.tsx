@@ -6,11 +6,10 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CommonZonesTabScreen from '../screens/common-zones/CommonZonesTabScreen';
-import SpecialAssessmentsTabScreen from '../screens/special-assessments/SpecialAssessmentsTabScreen';
 import ProfilesTabScreen from '../screens/user-profile/ProfilesTabScreen';
 import { colors, globalStyles, tabStyles } from '../styles';
 
-type TabType = 'assessments' | 'commonZones' | 'profiles';
+type TabType = 'commonZones' | 'profiles';
 
 interface Tab {
     id: TabType;
@@ -19,13 +18,12 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-    { id: 'assessments', title: 'Derramas', component: SpecialAssessmentsTabScreen },
     { id: 'commonZones', title: 'Zonas Comunes', component: CommonZonesTabScreen },
     { id: 'profiles', title: 'Autoridad', component: ProfilesTabScreen },
 ];
 
 export default function MyHoaMainTabsScreen() {
-    const [activeTab, setActiveTab] = useState<TabType>('assessments');
+    const [activeTab, setActiveTab] = useState<TabType>('commonZones');
 
     const renderActiveComponent = () => {
         const activeTabData = tabs.find(tab => tab.id === activeTab);

@@ -22,3 +22,46 @@ export const getIncidences = async () => {
 
 }
 
+export const uploadIncidenceImage = async (formData: FormData) => {
+    try {
+
+        const response =
+            await holaVecinoApi.post<ApiResponse<{ success: boolean; ids: string[] }>>(`/files/upload`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                transformRequest: [(data) => data],
+            })
+
+        return response.data.data
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const createIncidence = async (data: {
+    name: string;
+    description: string;
+    hoa_id: string;
+    is_votable: boolean;
+    file_id?: string;
+}) => {
+
+    try {
+
+        const response =
+            await holaVecinoApi.post<ApiResponse<string>>(`/incidences`, data)
+
+        return response.data.data
+
+    } catch (error) {
+        console.error(error);
+    }
+
+
+}
+
+
+
+
