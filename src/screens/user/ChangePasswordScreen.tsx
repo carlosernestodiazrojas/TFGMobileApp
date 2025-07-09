@@ -44,6 +44,7 @@ export default function ChangePasswordScreen() {
         }
 
         setLoading(true);
+
         const result = await changePassword(currentPassword, newPassword);
 
         if (result.success) {
