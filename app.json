@@ -27,7 +27,16 @@
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [],
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "ed8736ab-24c7-4391-b57b-26fbf5e2f84e"

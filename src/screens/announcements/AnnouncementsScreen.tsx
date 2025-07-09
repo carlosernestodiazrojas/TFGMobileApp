@@ -2,7 +2,7 @@
 import RenderAnnouncement from '@/components/announcements/RenderAnnouncement';
 import { Ionicons } from '@expo/vector-icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     Alert,
     FlatList,
@@ -20,6 +20,7 @@ import { Announcement, RootStackParamList } from '../../types';
 import { AnnouncementSkeletonGrid, AnnouncementSkeletonList } from '@/components/skeletons/AnnouncementSkeletons';
 
 import { getAnnouncements } from '@/actions/announcementActions';
+import { useFocusEffect } from '@react-navigation/native';
 
 export type AnnouncementsScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -31,9 +32,11 @@ export default function AnnouncementsScreen() {
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchAnnouncements();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            fetchAnnouncements();
+        }, [])
+    );
 
     useEffect(() => {
         filterAnnouncements();

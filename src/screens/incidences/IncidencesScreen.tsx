@@ -2,9 +2,9 @@
 import { getIncidences } from '@/actions/incidenceActions';
 import RenderIncidence from '@/components/incidences/RenderIncidence';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     Alert,
     FlatList,
@@ -29,9 +29,11 @@ export default function IncidencesScreen() {
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchIncidences();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            fetchIncidences();
+        }, [])
+    );
 
     useEffect(() => {
         filterIncidences();

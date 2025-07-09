@@ -1,6 +1,6 @@
 
 
-import { Hoa, User } from "@/types";
+import { Hoa, User, UserProfile } from "@/types";
 import type { ApiResponse } from "@/types/apiResponse";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { holaVecinoApi } from "../api/holaVecinoApi";
@@ -63,10 +63,10 @@ export const getAuthorityProfiles = async () => {
 
 }
 
-const getUserById = async (userId: string) => {
+export const getUserById = async (userId: string) => {
     try {
 
-        const response = await holaVecinoApi.get<ApiResponse<Hoa>>(`/users/getUser/${userId}`)
+        const response = await holaVecinoApi.get<ApiResponse<UserProfile>>(`/users/getUser/${userId}`)
         const { success, data } = response.data;
 
         if (success)

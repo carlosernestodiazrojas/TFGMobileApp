@@ -16,6 +16,7 @@ import MyHoaMainTabsScreen from '@/navigation/MyHoaMainTabScreenNavigator';
 import CommonZoneDetailScreen from '@/screens/common-zones/CommonZoneDetailScreen';
 import CreateIncidenceScreen from '@/screens/incidences/CreateIncidenceScreen';
 import SpecialAssessmentDetailScreen from '@/screens/special-assessments/SpecialAssessmentDetailScreen';
+import SpecialAssessmentsTabScreen from '@/screens/special-assessments/SpecialAssessmentsScreen';
 import { Platform } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { RootStackParamList, TabParamList } from '../types';
@@ -33,9 +34,22 @@ function MainTabs() {
 
                     if (route.name === 'Announcements') {
                         iconName = focused ? 'megaphone' : 'megaphone-outline';
-                    } else if (route.name === 'CommonZones') {
-                        iconName = focused ? 'cube' : 'cube-outline';
-                    } else {
+                    }
+
+                    else if (route.name === 'Incidences') {
+                        iconName = focused ? 'information-circle' : 'information-circle-outline';
+
+                    }
+
+                    else if (route.name === 'HoaInfo') {
+                        iconName = focused ? 'business' : 'business-outline';
+                    }
+
+                    else if (route.name === 'SpecialAssessments') {
+                        iconName = focused ? 'cash' : 'cash-outline';
+                    }
+
+                    else {
                         iconName = focused ? 'person' : 'person-outline';
                     }
 
@@ -71,6 +85,11 @@ function MainTabs() {
                 name="Incidences"
                 component={IncidencesScreen}
                 options={{ tabBarLabel: 'Incidencias' }}
+            />
+            <Tab.Screen
+                name="SpecialAssessments"
+                component={SpecialAssessmentsTabScreen}
+                options={{ tabBarLabel: 'Derramas' }}
             />
             <Tab.Screen
                 name="HoaInfo"
