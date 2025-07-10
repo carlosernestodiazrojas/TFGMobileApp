@@ -1,7 +1,13 @@
+/*
+ * Copyright (C) 2025 Carlos Ernesto Diaz Rojas
+ * Licencia GPL-3.0 *
+ * Trabajo de fin de estudio
+ * Grado en Ingeniería informática, UNIR
+ */
+
 
 import { Ionicons } from '@expo/vector-icons';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import React from 'react';
 import {
     Image,
     ScrollView,

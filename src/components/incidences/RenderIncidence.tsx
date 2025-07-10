@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2025 Carlos Ernesto Diaz Rojas
+ * Licencia GPL-3.0 *
+ * Trabajo de fin de estudio
+ * Grado en Ingeniería informática, UNIR
+ */
+
 import { IncidencesScreenNavigationProp } from "@/screens/incidences/IncidencesScreen";
 import { globalStyles, spacing } from "@/styles";
 import { Incidence } from "@/types";

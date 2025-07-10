@@ -1,7 +1,13 @@
+/*
+ * Copyright (C) 2025 Carlos Ernesto Diaz Rojas
+ * Licencia GPL-3.0 *
+ * Trabajo de fin de estudio
+ * Grado en Ingeniería informática, UNIR
+ */
+
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
 
 import AnnouncementDetailScreen from '../screens/announcements/AnnouncementDetailScreen';
 import AnnouncementsScreen from '../screens/announcements/AnnouncementsScreen';
