@@ -2,6 +2,7 @@
   "name": "tfg-hola-vecino-app",
   "main": "node_modules/expo/AppEntry.js",
   "version": "1.0.0",
+  "license": "GPL-3.0",
   "scripts": {
     "start": "expo start --lan",
     "reset-project": "node ./scripts/reset-project.js",
