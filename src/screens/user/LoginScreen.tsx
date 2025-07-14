@@ -22,8 +22,8 @@ import { useAuth } from '../../context/AuthContext';
 import { colors, globalStyles, loginStyles, spacing } from '../../styles';
 
 export default function LoginScreen() {
-    const [email, setEmail] = useState('superadmin@holavecino.es');
-    const [password, setPassword] = useState('871124');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
